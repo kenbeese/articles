@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import dbio,bibio
+import os.path
 def read_bibtex(g_cfg):
     bib_filename = g_cfg["bib_file"]
     db_filename = g_cfg["db_file"]
@@ -17,7 +18,7 @@ def read_bibtex(g_cfg):
         entry = { u"key" : key, u"author" : ",".join(authors)}
         fields = bib_data.entries[key].fields
         if u'title' in fields:
-            entry.update({ u"title" : fields[u'title'], })
+            entry.update({ u"title" : fields[u'title'].strip("{}"), })
         else:
             entry.update({ u"title" : "", })
         if u'journal' in fields:
@@ -28,7 +29,22 @@ def read_bibtex(g_cfg):
             entry.update({ u"year" : fields[u'year'], })
         else:
             entry.update({ u"year" : "", })
-        tags = art_db.article_tags(key)
+        if u'file' in fields:
+            # replace ':' to "/" is mendeley bug
+            path = u"/" + fields[u'file'].lstrip(u":").replace(u":pdf", "")
+            rpath = os.path.relpath(path, g_cfg["output"])
+            print(rpath)
+            entry.update({u"file": rpath})
+        else:
+            # For backward compatibility
+            entry.update({u"file": "pdf/" + key + ".pdf", })
+
+        if u'mendeley-tags' in fields:
+            tags = fields[u'mendeley-tags'].split(",")
+            for tag in tags:
+                art_db.tagging(key, tag)
+        else:                   # For backward compatibility
+            tags = art_db.article_tags(key)
         if tags:
             entry.update({ u"tags" : tags, })
         else:
