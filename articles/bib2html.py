@@ -33,7 +33,6 @@ def read_bibtex(g_cfg):
             # replace ':' to "/" is mendeley bug
             path = u"/" + fields[u'file'].lstrip(u":").replace(u":pdf", "")
             rpath = os.path.relpath(path, g_cfg["output"])
-            print(rpath)
             entry.update({u"file": rpath})
         else:
             # For backward compatibility
