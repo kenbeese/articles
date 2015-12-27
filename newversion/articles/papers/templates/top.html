@@ -26,7 +26,7 @@
         <!-- /.navbar-header -->
         <ul class="nav navbar-nav navbar-collapse navbar-right">
           <li>
-            <a href="#">Add document</a>
+            <a href="{% url 'papers:add' %}">Add document</a>
           </li>
         </ul>
         <div class="navbar-default sidebar" role="navigation">
@@ -72,7 +72,16 @@
       </nav>
 
       <div id="page-wrapper">
-
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <td>{{ book.title }} </td>
+          </tbody>
+        </table>
       </div>
       <!-- /#page-wrapper -->
 
