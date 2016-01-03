@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block body %}
+<h3>Tag List</h3>
+<ul class="list-group">
+  {% for tag in object_list %}
+  <li class="list-group-item">
+    {{ tag.tag }}
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
