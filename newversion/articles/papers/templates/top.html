@@ -1,98 +1,31 @@
-{% load staticfiles %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8"/>
-    <title>Articles</title>
-  </head>
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/jquery.metismenu/2.2.0/metisMenu.min.css">
-  <link rel="stylesheet" href="{% static 'navigation.css' %}"
-  <body>
-    <div id="wrapper">
-      <!-- Navigation -->
-      <nav class="navbar navbar-inverse navbar-static-top" role="navigation" style="margin-bottom: 0">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="index.html">Articles</a>
-        </div>
-        <!-- /.navbar-header -->
-        <ul class="nav navbar-nav navbar-collapse navbar-right">
-          <li>
-            <a href="{% url 'papers:add' %}">Add document</a>
-          </li>
-        </ul>
-        <div class="navbar-default sidebar" role="navigation">
-          <div class="sidebar-nav navbar-collapse">
-            <ul class="nav metismenu" id="side-menu">
-              <li class="sidebar-search">
-                <div class="input-group custom-search-form">
-                  <input type="text" class="form-control" placeholder="Search...">
-                  <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">
-                      Push
-                    </button>
-                  </span>
-                </div>
-                <!-- /input-group -->
-              </li>
-              <li>
-                <a href="index.html">Dashboard</a>
-              </li>
-              <li>
-                <a href="#"> Multi-Level Dropdown <span class="fa arrow"></span></a>
-                <ul class="nav nav-second-level">
-                  <li>
-                    <a href="#">Second Level Item</a>
-                  </li>
-                  <li>
-                    <a href="#">Third Level<span class="fa arrow"></span></a>
-                    <ul class="nav nav-third-level">
-                      <li>
-                        <a href="#">Third Level Item</a>
-                      </li>
-                    </ul>
-                    <!-- /.nav-third-level -->
-                  </li>
-                </ul>
-                <!-- /.nav-second-level -->
-              </li>
-            </ul>
-          </div>
-          <!-- /.sidebar-collapse -->
-        </div>
-        <!-- /.navbar-static-side -->
-      </nav>
-
-      <div id="page-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Title</th>
-            </tr>
-          </thead>
-          <tbody>
-            <td>{{ book.title }} </td>
-          </tbody>
-        </table>
-      </div>
-      <!-- /#page-wrapper -->
-
-    </div>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/metisMenu/2.2.0/metisMenu.min.js"></script>
-    <script>
-     $(function () {
-       $("#side-menu").metisMenu();
-     });
-    </script>
-  </body>
-</html>
+{% extends "base.html" %}
+{% block body %}
+    <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Tags</th>
+        <th>Registered at</th>
+        <th>Issue Date</th>
+        <th>Note</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td><input name="delete_ids" type="checkbox" value="{{ message.id }}"/></td>
+          <td>{{ book.title }} </td>
+          <td>{{ book.authors }}</td>
+          <td>{{ book.tags }}</td>
+          <td>{{ book.registered_at }} </td>
+          <td>{{ book.issue_date }} </td>
+          <td>{{ book.note }}</td>
+          <td><a href="{% url 'papers:edit' book.id %}">Edit</a> </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
