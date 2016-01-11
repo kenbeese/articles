@@ -1,0 +1,36 @@
+<form method="post" action="{% url 'papers:delete' %}">
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Tags</th>
+        <th>Registered at</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td><input name="delete_ids" type="checkbox" value="{{ book.id }}"/></td>
+          <td>{{ book.title }} {{ book.bookfile }} </td>
+          <td>
+            {% for author in book.author.all %}
+              {{ author }}
+            {% endfor %}
+          </td>
+          <td>
+            {% for tag in book.tags.all %}
+              <a href="{% url 'papers:tag' tag.id %}">{{ tag.tag }}</a>
+            {% endfor %}
+          </td>
+          <td>{{ book.registered_at }} </td>
+          <td><a href="{% url 'papers:edit' book.id %}">Edit</a> </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% csrf_token %}
+  <input name="" type="submit" value="Delete"/>
+</form>
