@@ -44,10 +44,17 @@
                 <!-- /input-group -->
               </li>
               <li>
-                <a href="index.html">Dashboard</a>
+                <a href="{% url 'papers:top' %}">Top Page</a>
               </li>
               <li>
-                <a href="#"> Multi-Level Dropdown <span class="fa arrow"></span></a>
+                <a href="{% url 'papers:tags' %}">Tag list</a>
+              </li>
+              <li>
+                <a href="{% url 'papers:authors' %}">Author list</a>
+              </li>
+
+              <li>
+                <a href="#"> Multi-Level  <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                   <li>
                     <a href="#">Second Level Item</a>
@@ -79,8 +86,8 @@
 
     </div>
     <script src="{% static 'js/jquery-2.1.4.min.js' %}"></script>
-    <script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"</script>
-    <script src="{% static 'metisMenu-master/dist/metisMenu.min.js' %}"</script>
+    <script src="{% static 'bootstrap-3.3.6-dist/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'metisMenu-master/dist/metisMenu.min.js' %}"></script>
     <script>
      $(function () {
        $("#side-menu").metisMenu();

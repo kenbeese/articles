@@ -1,31 +1,4 @@
 {% extends "base.html" %}
 {% block body %}
-    <table class="table">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Title</th>
-        <th>Authors</th>
-        <th>Tags</th>
-        <th>Registered at</th>
-        <th>Issue Date</th>
-        <th>Note</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for book in books %}
-        <tr>
-          <td><input name="delete_ids" type="checkbox" value="{{ message.id }}"/></td>
-          <td>{{ book.title }} </td>
-          <td>{{ book.authors }}</td>
-          <td>{{ book.tags }}</td>
-          <td>{{ book.registered_at }} </td>
-          <td>{{ book.issue_date }} </td>
-          <td>{{ book.note }}</td>
-          <td><a href="{% url 'papers:edit' book.id %}">Edit</a> </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  {% include "book_list.html" %}
 {% endblock %}
